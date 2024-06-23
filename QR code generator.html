@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: lightgray;
+        }
+        .container {
+            box-sizing: border-box;
+            width: 40%;
+            align-items: center;
+            text-align: center;
+            background-color: azure;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-top: 150px;
+            margin-right: auto;
+            padding: 20px;
+        }
+        button {
+            width: 50%;
+            height: 40px;
+            border-radius: 20px;
+            background-color: violet;
+            margin-top: 20px;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: blueviolet;
+            font-weight: bolder;
+            font-style: oblique;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+        input[type="text"]{
+            width:80%;
+            border-radius: 10px;
+            padding:10px;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <h1>QR Code Generator</h1>
+            <div class="design">
+                <input type="text" id="qrcode" placeholder="Enter your text!">
+                <br>
+                <button onclick="qrgenerate()">Generate QR</button>
+                <br>
+                <img id="qrimage" src="" alt="QR Code will appear here">
+            </div>
+        </div>
+        <script>
+            function qrgenerate(){
+                var text=document.getElementById("qrcode").value;
+                var qrurl='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(text);
+                document.getElementById('qrimage').src=qrurl;
+            }
+        </script>
+    </body>
+</html>
