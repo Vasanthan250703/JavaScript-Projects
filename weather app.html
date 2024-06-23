@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: lightskyblue;
+        }
+        .container {
+            box-sizing: border-box;
+            width: 40%;
+            align-items: center;
+            text-align: center;
+            background-color: azure;
+            border-radius: 20px;
+            margin-left: auto;
+            margin-top: 150px;
+            margin-right: auto;
+            padding: 20px;
+        }
+        button {
+            width: 20%;
+            height: 40px;
+            background-color: violet;
+            margin-top: 20px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+        button:hover {
+            cursor: pointer;
+            font-weight: 900;
+            font-style: oblique;
+            background-color: yellowgreen;
+        }
+        input[type="text"] {
+            width: 50%;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        img {
+            margin-top: 20px;
+        }
+        .weather-info {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .city-name {
+            font-size: 24px;
+            font-family: 'Cursive', sans-serif;
+            margin-bottom: 10px;
+        }
+        .temperature {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .details {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .weather-description {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 50%;
+            color: gray;
+        }
+        .humidity {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: cornflowerblue;
+            text-align: right;
+            width: 50%;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <h1>Weather</h1>
+            <div class="design">
+                <input type="text" id="cityName" placeholder="Enter City Name!">
+                <button onclick="getWeather()">Enter</button>
+                <br>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3wtGAGQSrBoQ1X38VukSV3IsjyoGs2jGeQA&s" alt="Weather Image">
+                <div class="weather-info" id="weatherInfo"></div>
+            </div>
+        </div>
+        <script>
+            const apikey = "6f34af516eb5f0879c19468914bb0c7e";
+            async function getWeather() {
+                const city = document.getElementById("cityName").value;
+                if (!city) {
+                    alert("Please enter a city name!");
+                    return;
+                }
+
+                const apiurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
+                try {
+                    const response = await fetch(apiurl);
+                    const data = await response.json();
+                    if (response.ok) {
+                        const temp = data.main.temp;
+                        const color = temp > 28 ? "orange" : "blue";
+                        const weatherInfo = `
+                            <div class="city-name">${data.name}</div>
+                            <div class="temperature" style="color: ${color};">${temp}°C</div>
+                            <div class="details">
+                                <div class="weather-description">Weather: ${data.weather[0].description}</div>
+                                <div class="humidity">Humidity: ${data.main.humidity}%</div>
+                            </div>
+                        `;
+                        document.getElementById("weatherInfo").innerHTML = weatherInfo;
+                    } else {
+                        document.getElementById("weatherInfo").innerHTML = `<p>${data.message}</p>`;
+                    }
+                } catch (error) {
+                    document.getElementById("weatherInfo").innerHTML = `<p>Cannot Fetch Weather Data!</p>`;
+                }
+            }
+        </script>
+    </body>
+</html>
