@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .container {
+            box-sizing: border-box;
+            width: 30%;
+            border: 2px solid black;
+            height: 40vh;
+            border-radius: 40px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white; 
+        }
+        button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 50px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        input {
+            width: 50%;
+            height: 100px;
+            border-radius: 30px;
+        }
+        .mode-image {
+            width: 50px; 
+            height: 50px; 
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <img id="modeImage" class="mode-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3575iLIRQTJ7eIspyJZNqed2RuQ3_CJFqxFrSD77NPmT7VbFsGR9VbTxVWG37Wl6stIQ&usqp=CAU" alt="Mode Image">
+    <div class="container">
+        <input id="content" placeholder="Enter text">
+        <button id="modeToggle">Change Mode</button>
+    </div>
+    <script>
+        const modeToggle = document.getElementById('modeToggle');
+        const modeImage = document.getElementById('modeImage');
+        const content = document.getElementById('content');
+        let darkMode = false;
+
+        modeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            if (darkMode) {
+                document.body.style.backgroundColor = 'black';
+                modeImage.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIVGOxr917jZcYX3LQ-scttlUSQmMNEx04Q83vOhNGa0y7WGKdXat9gtwjqw&s';
+            } else {
+                document.body.style.backgroundColor = 'white';
+                modeImage.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3575iLIRQTJ7eIspyJZNqed2RuQ3_CJFqxFrSD77NPmT7VbFsGR9VbTxVWG37Wl6stIQ&usqp=CAU';
+            }
+        });
+    </script>
+</body>
+</html>
